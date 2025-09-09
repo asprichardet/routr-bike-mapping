@@ -14,8 +14,6 @@ What kind of paths you prefer, what you'd like to avoid, can you do hills, type 
 
 Sightseeing option, find routes around a city (madison, boulder, etc) to see specific things you want!
 
-8/26/2025:
-- For tomorrow: create a GitHub repo and learn to manage privately.
-- Work with GIS data to get what I need and set up more classes/objects.
-- Install OSMNx to get street map data (more scalable to other cities vs local city data)
-- Create account, play with packages.
+9/8/2025:
+- Got osmnx functioning, found cycling path data
+- Now need to create class objects and get those set up

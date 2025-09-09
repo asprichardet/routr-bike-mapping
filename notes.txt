@@ -1,0 +1,21 @@
+Routr is designed to help bike commuters find the best bike routes available to get to where they're going.
+
+Ideas:
+Implement Djikstra's algorithm with GIS data to find the shortest route between bike paths.
+
+Future Ideas:
+Identify areas of bike inefficiencies & contact representatives based on zip code!
+Currently just want something to get you around.
+Explore with weighting Djikstra's to prefer bike lanes, avoid busy roads, and no hills
+Seasonality: Swap to paved paths in winter.
+
+Preferences page:
+What kind of paths you prefer, what you'd like to avoid, can you do hills, type of bike you have, etc.
+
+Sightseeing option, find routes around a city (madison, boulder, etc) to see specific things you want!
+
+8/26/2025:
+- For tomorrow: create a GitHub repo and learn to manage privately.
+- Work with GIS data to get what I need and set up more classes/objects.
+- Install OSMNx to get street map data (more scalable to other cities vs local city data)
+- Create account, play with packages.

@@ -24,4 +24,11 @@ Sightseeing option, find routes around a city (madison, boulder, etc) to see spe
     - Enter a node into the graph to see its AdjView, which contains all of the neighboring node. The desired neighboring node can then
         be provided to see the specific edge between the nodes & information like "length", "highway" & "osmid" can be accessed.
 
-- 
+10/20/25:
+- Shortest path function is now finally working!
+- Next steps:
+    - Create a class to have customization features:
+        - When creating a bike class first the city is defined
+        - Then there is the option to add attributes about routing preferences (bike path types)
+
+    - Add in the priority queue to increase speed.  

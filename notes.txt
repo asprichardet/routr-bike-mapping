@@ -36,7 +36,6 @@ Sightseeing option, find routes around a city (madison, boulder, etc) to see spe
 10/23/25:
 - Shortest path with a priority queue now working! Roughly 9 times faster than the original!
 - Next steps:
-    - Path distance 
     - Route decision options based on path type.
     - Set up classes & doc strings.
     - Visualizations of path (Start with geopandas explore?)

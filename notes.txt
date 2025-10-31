@@ -39,3 +39,17 @@ Sightseeing option, find routes around a city (madison, boulder, etc) to see spe
     - Route decision options based on path type.
     - Set up classes & doc strings.
     - Visualizations of path (Start with geopandas explore?)
+
+10/24/25:
+- Added option to return path distances to shortest path queue function
+- Refactored the shortest_path_queue function to have multiple functions for code design/cleanlinesss
+- Might need to consider the fact that the graph is *Directed*
+    - There are one way options on the graph and an edge may not be traversible in some direction. 
+
+10/31/25:
+- Completed queue function
+- Completed routing preferences options
+- Included functions as methods in CyclewayGraph class.
+
+- Would be good to add error handling & messages (try/except statements)
+- Also need to start working on front-end once folium & streamlit are installed (conda issues?)

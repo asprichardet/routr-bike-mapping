@@ -53,3 +53,17 @@ Sightseeing option, find routes around a city (madison, boulder, etc) to see spe
 
 - Would be good to add error handling & messages (try/except statements)
 - Also need to start working on front-end once folium & streamlit are installed (conda issues?)
+
+11/6/25:
+- Created some visualizations with folium
+- Need to double check some routing, check access on roads: (BP Gas on University has "customer" access edge-tag)
+- Quickest route is directing down West-Johnson?? Oneway bike routing down there despite going other way? weird.
+    - Routing error shouldn't be possible because of oneway tag.
+
+- Looks like folium is used for the mapping engine
+- Streamlit is the front-end application, streamlit-folium to connect them.
+
+    Ideas:
+- Can use folium to tag start and end-points of route
+- Use labels for highway/street names that people can hover over
+- Seem to bearing options that could be used for turn severity/compass orientation?

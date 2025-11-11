@@ -8,8 +8,8 @@ import folium
 import streamlit_folium as sf
 
 
-def city_collector():
-    location = str(input("Enter your City and State:"))
+def city_collector(location):
+    # location = str(input("Enter your City and State:"))
     if ',' in location:
         location_list = location.split(sep = ',')
         return location_list[0], location_list[1].lstrip(' ')
@@ -126,7 +126,7 @@ class CyclewayGraph:
             # shortest/default option
             return edge_length
 
-
+    @st.cache_data
     def find_shortest_path_queue(self, start_node, end_node, path_distance = False, override_pref = False):
         """This function implements a priority queue, using heapq, to find the shortest path between two nodes in a NetworkX MultiDiGraph.
 
@@ -176,8 +176,35 @@ class CyclewayGraph:
                     previous_nodes[neighbor_node] = closest_node
                     hq.heappush(unvisited_nodes, (alt_path_length, neighbor_node))
 
+@st.cache_resource
+def class_creator(city, state):
+   return CyclewayGraph(city, state)
 
-city, state = city_collector()
+location_input = st.text_input("Enter your city and state")
+if location_input:
+    
+    # try:
+        city, state = city_collector(location_input)
+        st.write(f"Loading data for {city}, {state}!")
+        city_bike_graph = class_creator(city, state)
+        st.write(f"Map loaded for {city}, {state}")
+        center_node = list(city_bike_graph.graph.nodes)[0]
+        print(center_node)
+        center_y, center_x = city_bike_graph.graph.nodes[center_node]['y'], city_bike_graph.graph.nodes[center_node]['x']
+        st.write('found center nodes')
+        # folium.Map((center_y,center_x))
+        st.map(latitude = center_y, longitude = center_x, )
+
+    # except:
+        # st.write(f'Unable to find data for "{location_input}", try re-entering!')
 
 
-msn_bike_graph = CyclewayGraph(city,state)
+# msn_bike_graph = CyclewayGraph(city,state) 
+# if city_bike_graph:
+#     shortest_path = city_bike_graph.find_shortest_path_queue(start_node = 1179967122, end_node = 11143855834)
+#     st.write('Found shortest path!')
+
+# st.write("Here's my first attempt at using data to plot a route:")
+# msn_route_graph = ox.plot_graph_route(city_bike_graph.graph, shortest_path)
+
+# st.write(msn_route_graph)

@@ -5,7 +5,7 @@ import numpy as np
 import heapq as hq
 import streamlit as st
 import folium 
-import streamlit_folium as sf
+from streamlit_folium import st_folium
 
 
 def city_collector(location):
@@ -189,11 +189,12 @@ if location_input:
         city_bike_graph = class_creator(city, state)
         st.write(f"Map loaded for {city}, {state}")
         center_node = list(city_bike_graph.graph.nodes)[0]
-        print(center_node)
         center_y, center_x = city_bike_graph.graph.nodes[center_node]['y'], city_bike_graph.graph.nodes[center_node]['x']
-        st.write('found center nodes')
-        # folium.Map((center_y,center_x))
-        st.map(latitude = center_y, longitude = center_x, )
+
+        test_map = folium.Map((center_y,center_x))
+        # st.write(test_map)
+        sf_test_map  = st_folium(test_map)
+        # st.map(latitude = str(center_y), longitude = str(center_x))
 
     # except:
         # st.write(f'Unable to find data for "{location_input}", try re-entering!')

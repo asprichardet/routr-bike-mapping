@@ -182,30 +182,59 @@ def class_creator(city, state):
 
 location_input = st.text_input("Enter your city and state")
 if location_input:
-    
+
     # try:
         city, state = city_collector(location_input)
         st.write(f"Loading data for {city}, {state}!")
         city_bike_graph = class_creator(city, state)
         st.write(f"Map loaded for {city}, {state}")
+
         center_node = list(city_bike_graph.graph.nodes)[0]
         center_y, center_x = city_bike_graph.graph.nodes[center_node]['y'], city_bike_graph.graph.nodes[center_node]['x']
 
-        test_map = folium.Map((center_y,center_x))
+        city_map = folium.Map((center_y,center_x))
+
+        
+        marker = city_map.add_child(
+            folium.ClickForMarker()
+        )
+        # st.write(marker)
         # st.write(test_map)
-        sf_test_map  = st_folium(test_map)
+        sf_city_map  = st_folium(city_map)
+
+        if "start_end_pt" not in st.session_state:
+            st.session_state["start_end_pt"] = [] #stores the 
+            st.session_state["last_ll"] = [] #stores lower-left coord of last map "view"
+            st.session_state["last_ur"] = [] #stores upper-right coord of last map "view"
+
+        else:
+            if len(st.session_state["start_end_pt"]) >= 2:
+                st.session_state["start_end_pt"].clear()
+
+        # if "recent_bounds" not in st.session_state:
+            
+
+        if sf_city_map["last_clicked"]:
+            start_lat, start_lon = sf_city_map["last_clicked"]["lat"], sf_city_map["last_clicked"]["lng"]
+            st.session_state["start_end_pt"].append((start_lat, start_lon))
+
+            # st.write(st.session_state["start_end_pt"])
+
+            # st.write(st.session_state)
+            st.session_state["last_ll"] = (sf_city_map["bounds"]["_southWest"]["lat"], sf_city_map["bounds"]["_southWest"]["lng"])
+            st.session_state["last_ur"] = (sf_city_map["bounds"]["_northEast"]["lat"], sf_city_map["bounds"]["_southWest"]["lng"])
+            st.write(sf_city_map["bounds"])
+            st.write(st.session_state["last_ll"], st.session_state["last_ur"])
+
+
+
+        
+
+
         # st.map(latitude = str(center_y), longitude = str(center_x))
 
+
+        
     # except:
         # st.write(f'Unable to find data for "{location_input}", try re-entering!')
 
-
-# msn_bike_graph = CyclewayGraph(city,state) 
-# if city_bike_graph:
-#     shortest_path = city_bike_graph.find_shortest_path_queue(start_node = 1179967122, end_node = 11143855834)
-#     st.write('Found shortest path!')
-
-# st.write("Here's my first attempt at using data to plot a route:")
-# msn_route_graph = ox.plot_graph_route(city_bike_graph.graph, shortest_path)
-
-# st.write(msn_route_graph)

@@ -192,15 +192,36 @@ if location_input:
         center_node = list(city_bike_graph.graph.nodes)[0]
         center_y, center_x = city_bike_graph.graph.nodes[center_node]['y'], city_bike_graph.graph.nodes[center_node]['x']
 
-        city_map = folium.Map((center_y,center_x))
+        city_map = folium.Map(
+            location = (center_y,center_x),
+            # width = 1000,
+            # height = 800, 
+            zoom_start = 10
+            )
 
-        
-        marker = city_map.add_child(
-            folium.ClickForMarker()
-        )
-        # st.write(marker)
-        # st.write(test_map)
-        sf_city_map  = st_folium(city_map)
+        if len(st.session_state["start_end_pt"]) == 1:
+            folium.Marker(
+                location=[st.session_state["start_end_pt"][0][0], st.session_state["start_end_pt"][0][1]],
+                tooltip="Route Start",
+                popup="Starting Point",
+                icon=folium.Icon(icon= "glyphicon-user", color = "green"),
+            ).add_to(city_map)
+
+        elif len(st.session_state["start_end_pt"]) == 2:
+            folium.Marker(
+                location=[st.session_state["start_end_pt"][0][0], st.session_state["start_end_pt"][0][1]],
+                tooltip="Route Start",
+                popup="Starting Point",
+                icon=folium.Icon(icon= "glyphicon-user", color = "green"),
+            ).add_to(city_map)
+
+            folium.Marker(
+                location=[st.session_state["start_end_pt"][1][0], st.session_state["start_end_pt"][1][1]],
+                tooltip="Route End",
+                popup="End Destination",
+                icon=folium.Icon(icon= "glyphicon-remove", color = "red"),
+            ).add_to(city_map)
+
 
         if "start_end_pt" not in st.session_state:
             st.session_state["start_end_pt"] = [] #stores the 
@@ -208,30 +229,34 @@ if location_input:
             st.session_state["last_ur"] = [] #stores upper-right coord of last map "view"
 
         else:
-            if len(st.session_state["start_end_pt"]) >= 2:
+            if len(st.session_state["start_end_pt"]) > 2:
                 st.session_state["start_end_pt"].clear()
 
         # if "recent_bounds" not in st.session_state:
             
+        # marker = city_map.add_child(folium.ClickForMarker())
+    
+        sf_city_map  = st_folium(city_map, use_container_width=True)
+
 
         if sf_city_map["last_clicked"]:
-            start_lat, start_lon = sf_city_map["last_clicked"]["lat"], sf_city_map["last_clicked"]["lng"]
-            st.session_state["start_end_pt"].append((start_lat, start_lon))
-
-            # st.write(st.session_state["start_end_pt"])
-
-            # st.write(st.session_state)
-            st.session_state["last_ll"] = (sf_city_map["bounds"]["_southWest"]["lat"], sf_city_map["bounds"]["_southWest"]["lng"])
-            st.session_state["last_ur"] = (sf_city_map["bounds"]["_northEast"]["lat"], sf_city_map["bounds"]["_southWest"]["lng"])
-            st.write(sf_city_map["bounds"])
-            st.write(st.session_state["last_ll"], st.session_state["last_ur"])
-
+            point_lat, point_lon = sf_city_map["last_clicked"]["lat"], sf_city_map["last_clicked"]["lng"]
+            st.session_state["start_end_pt"].append((point_lat, point_lon))
+            
+            # folium.Marker(
+            #     location=[point_lat, point_lon],
+            #     tooltip="Route Start",
+            #     popup="Starting Point",
+            #     icon=folium.Icon(icon= "glyphicon-user", color = "green"),
+            # ).add_to(sf_city_map)
 
 
-        
 
 
-        # st.map(latitude = str(center_y), longitude = str(center_x))
+
+
+
+    
 
 
         
